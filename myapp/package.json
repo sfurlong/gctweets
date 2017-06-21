@@ -1,0 +1,23 @@
+{
+    "name": "gctweets",
+    "version": "0.0.1",
+    "scripts": {
+        "start": "node ./bin/www"
+    },
+
+    "engines": {
+        "node": ">=4.3.2"
+    },
+    "dependencies": {
+        "@google-cloud/datastore": "1.0.2",
+        "angular": "^1.6.4",
+        "express": "^4.15.3",
+        "yargs": "8.0.2"
+    },
+    "devDependencies": {
+        "@google-cloud/nodejs-repo-tools": "1.4.15",
+        "ava": "0.19.1",
+        "proxyquire": "1.8.0",
+        "sinon": "2.3.4"
+    }
+}

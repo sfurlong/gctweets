@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.5/angular.min.js"></script>
+    <script src="gctweets_controller.js"></script>
+    <link href="bootstrap.css" rel="stylesheet" />
+    <link href="bootstrap-theme.css" rel="stylesheet" />
+
+
+    <style>
+        .logTextArea {
+            width: 600px;
+            height: 500px;
+            border: 3px solid #cccccc;
+            padding: 5px;
+            font-family: Tahoma, sans-serif;
+        }
+        
+        .body {
+            margin: 20px;
+        }
+        
+        .googlemap {
+            width: 1200px;
+            height: 500px;
+            border: 3px solid #cccccc;
+            padding: 5px;
+            font-family: Tahoma, sans-serif;
+        }
+    </style>
+
+    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDloBRCA2ZJNE2mAZ9CV6JJBkWs9sAsHw8&libraries=places">
+    </script>
+
+    <script type="text/javascript">
+        "use strict";
+
+        var map;
+        var geocoder;
+        var myLatlng = new google.maps.LatLng(38.2562, -96.0650);
+
+        function initialize() {
+            geocoder = new google.maps.Geocoder();
+            var mapOptions = {
+                center: myLatlng,
+                zoom: 2
+            };
+
+            map = new google.maps.Map(document.getElementById("map-canvas"),
+                mapOptions);
+        }
+
+        google.maps.event.addDomListener(window, "load", initialize);
+    </script>
+
+</head>
+
+<body class="body" ng-app="mainModule">
+
+    <div ng-controller="mainController">
+        <h3>Search for Tweets in Google Cloud Datastore NoSQL Database</h3>
+
+        <label>Search Term(s):
+      <input type="text" ng-model="searchTermParam" ng-init="searchTermParam = 'term value'" />
+    </label>
+        <button ng-click="searchTweets()">Search</button>
+        <br>
+        <label>Plot Tweet Locations:
+    <input class="checkbox-inline" type="checkbox" ng-model="checkboxModel.value1" ng-init="checkboxModel.value1=false" />
+    </label>
+        <br/><br/><br/>
+
+        <table>
+            <tr>
+                <td>
+                    <b>Tweet Summaries</b><br>
+                    <textarea class="logTextArea">{{getSearchTweetResults}}</textarea>
+                </td>
+                <td>
+                    <b>Raw Tweet Data</b><br>
+                    <textarea class="logTextArea">{{getRawSearchTweetResults}}</textarea>
+                </td>
+            </tr>
+        </table>
+
+        <div id="map-canvas" class="googlemap"></div>
+
+    </div>
+</body>
+
+</html>
