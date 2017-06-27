@@ -11,7 +11,6 @@ module.exports = {
         // [START retrieve_entities]
         const query = datastore.createQuery('tweet')
             .order('created');
-
         datastore.runQuery(query)
             .then((results) => {
                 const tasks = results[0];
@@ -19,7 +18,7 @@ module.exports = {
                 console.log('tweetss:');
                 tasks.forEach((task) => {
                     const taskKey = task[datastore.KEY];
-                    console.log(taskKey.id, task);
+                    console.log(taskKey.id, "tweet");
                 });
                 return callback(JSON.stringify(tasks, null, 4));
             })

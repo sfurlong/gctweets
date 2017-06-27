@@ -12,7 +12,6 @@ var app = express();
 
 
 var dbQuery = require("./querytweets.js");
-var dbLoad = require("./loadtweets.js");
 
 
 // view engine setup
@@ -43,16 +42,6 @@ app.get('/search/', function(req, res) {
     console.log('Searching for movies.' + req.query.year);
     dbQuery.search(parseInt(req.query.year), function(queryDat) {
         res.send(queryDat);
-    });
-});
-
-// LOAD Movies to DB from JSON files
-app.get('/load/', function(req, res) {
-
-    console.log('READY TO LOAD MOVIES from: ' + req.query.dir);
-
-    dbLoad.loadTweets(req.query.dir, function(queryDat) {
-
     });
 });
 

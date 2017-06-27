@@ -1,7 +1,6 @@
 angular.module("mainModule", [])
     .controller("mainController", function($scope, $http, jsonFilter) {
 
-        var serverURL = "http://localhost:3000";
         var logResult = function(str, data, status, headers, config) {
             return str + "\n\n" +
                 "data: " + '\n\n' + data + "\n\n" +
@@ -64,20 +63,22 @@ angular.module("mainModule", [])
 
             //REST GET Call to the Node.JS server which will in turn call
             //the MarkLogic database javascript api.
-            $http.get(serverURL + "/search", config)
+            $http.get("/search", config)
                 .success(function(data, status, headers, config) {
                     // The $http service automatically converts the response to a
                     // JavaScript object whenever it sees that it looks 
                     // like a JSON string.
                     var tweetCnt = 0;
                     data.forEach(function(document) {
-                        $scope.getSearchTweetResults += "Tweet: " + document.content.text + '\n';
-                        $scope.getSearchTweetResults += "Friend Count: " + document.content.user.friends_count + '\n';
-                        $scope.getSearchTweetResults += "Screen Name: " + document.content.user.screen_name + '\n';
-                        $scope.getSearchTweetResults += "Name: " + document.content.user.name + '\n';
-                        $scope.getSearchTweetResults += "Location: " + document.content.user.location + '\n';
+
+                        console.log(document);
+                        $scope.getSearchTweetResults += "Tweet: " + document.tweet + '\n';
+                        $scope.getSearchTweetResults += "Friend Count: " + document.tweet.user.friends_count + '\n';
+                        $scope.getSearchTweetResults += "Screen Name: " + document.tweet.user.screen_name + '\n';
+                        $scope.getSearchTweetResults += "Name: " + document.tweet.user.name + '\n';
+                        $scope.getSearchTweetResults += "Location: " + document.tweet.user.location + '\n';
                         $scope.getSearchTweetResults += '\n---------------------------------\n\n';
-                        places[document.content.user.location] = document.content.user.location;
+                        places[document.tweet.user.location] = document.tweet.user.location;
                         tweetCnt++;
                     });
 
